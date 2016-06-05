@@ -2,22 +2,23 @@ package com.nwshire;
 
 import java.util.Iterator;
 
-public class LRUCache {
+public class LRUCache<K,V> {
     int capacity;
     int count = 0;
     int size = 997;
-    Node[] hashMap = new Node[size];
+    Node<K,V>[] hashMap;
     Node lruHead = null;
     Node lruTail = null;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
+        hashMap = new Node[size];
     }
 
-    public Object get(Object key) {
+    public V get(K key) {
         int idx = key.hashCode() % size;
 
-        Node node = hashMap[idx];
+        Node<K,V> node = hashMap[idx];
         while ( node != null && !node.key.equals(key) ) {
             node = node.hNext;
         }
@@ -26,10 +27,10 @@ public class LRUCache {
         return node != null ? node.value : null;
     }
 
-    public void put(Object key, Object value) {
+    public void put(K key, V value) {
         int idx = key.hashCode() % size;
 
-        Node node = hashMap[idx];
+        Node<K,V> node = hashMap[idx];
         while ( node != null && !node.key.equals(key) ) {
             node = node.hNext;
         }
@@ -37,7 +38,7 @@ public class LRUCache {
         if ( node != null ) {
             node.value = value;
         } else {
-            node = new Node(key, value);
+            node = new Node<K,V>(key, value);
             node.hNext = hashMap[idx];
             hashMap[idx] = node;
             ++count;
@@ -46,15 +47,15 @@ public class LRUCache {
         updateLru(node, true);
     }
 
-    public Iterator keyIterator() {
+    public Iterator<K> keyIterator() {
         return new KeyIterator(lruHead);
     }
 
-    private void remove(Object key) {
+    private void remove(K key) {
         int idx = key.hashCode() % size;
 
-        Node lastNode = null;
-        Node node = hashMap[idx];
+        Node<K,V> lastNode = null;
+        Node<K,V> node = hashMap[idx];
         while ( node != null && !node.key.equals(key) ) {
             lastNode = node;
             node = node.hNext;
@@ -70,9 +71,9 @@ public class LRUCache {
         }
     }
 
-    private void removeNode(Node node) {
-        Node pn = node.lruPrev;
-        Node nn = node.lruNext;
+    private void removeNode(Node<K,V> node) {
+        Node<K,V> pn = node.lruPrev;
+        Node<K,V> nn = node.lruNext;
 
         if ( pn != null ) {
             pn.lruNext = nn;
@@ -91,7 +92,7 @@ public class LRUCache {
         }
     }
 
-    private void pushNode(Node node) {
+    private void pushNode(Node<K,V> node) {
         if ( lruHead != null ) {
             lruHead.lruPrev = node;
         }
@@ -105,7 +106,7 @@ public class LRUCache {
         }
     }
 
-    private void updateLru(Node node, boolean trim) {
+    private void updateLru(Node<K,V> node, boolean trim) {
         if ( node != null ) {
             if ( node != lruHead ) {
                 removeNode(node);
@@ -113,7 +114,7 @@ public class LRUCache {
             }
 
             if ( trim && count > capacity ) {
-                Node lastLruNode = lruTail;
+                Node<K,V> lastLruNode = lruTail;
                 removeNode(lruTail);
                 if ( lastLruNode != null ) {
                     remove(lastLruNode.key);
@@ -122,14 +123,14 @@ public class LRUCache {
         }
     }
 
-    class Node {
-        Object key;
-        Object value;
+    class Node<K,V> {
+        K key;
+        V value;
         Node hNext;
         Node lruNext;
         Node lruPrev;
 
-        Node(Object key, Object value) {
+        Node(K key, V value) {
             this.key = key;
             this.value = value;
             this.hNext = null;
@@ -139,7 +140,7 @@ public class LRUCache {
     }
 
     class KeyIterator implements Iterator {
-        Node node;
+        Node<K,V> node;
 
         KeyIterator(Node head) {
            node = head;
@@ -151,8 +152,8 @@ public class LRUCache {
         }
 
         @Override
-        public Object next() {
-            Object key = node.key;
+        public K next() {
+            K key = node.key;
             node = node.lruNext;
             return key;
         }

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class LRUCacheMap {
-    Map<Object,Node> map = new HashMap<Object,Node>();
+public class LRUCacheMap<K,V> {
+    Map<K,Node> map = new HashMap<K,Node>();
     int capacity;
     Node lruHead = null;
     Node lruTail = null;
@@ -14,13 +14,13 @@ public class LRUCacheMap {
         this.capacity = capacity;
     }
 
-    public Object get(Object key) {
+    public V get(K key) {
         Node node = map.get(key);
         updateLru(node, false);
         return node != null ? node.value : null;
     }
 
-    public void put(Object key, Object value) {
+    public void put(K key, V value) {
         Node node = map.get(key);
 
         if ( node != null ) {
@@ -88,13 +88,14 @@ public class LRUCacheMap {
             }
         }
     }
+
     class Node {
-        Object key;
-        Object value;
+        K key;
+        V value;
         Node lruNext;
         Node lruPrev;
 
-        Node(Object key, Object value) {
+        Node(K key, V value) {
             this.key = key;
             this.value = value;
             this.lruNext = null;

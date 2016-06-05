@@ -5,12 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class LRUICacheMap {
-    Map<Integer,Node> map = new HashMap<Integer,Node>();
+    Map<Integer,Node> map;
     int capacity;
     Node lruHead = null;
     Node lruTail = null;
 
     public LRUICacheMap(int capacity) {
+        map = new HashMap<Integer,Node>(capacity);
         this.capacity = capacity;
     }
 

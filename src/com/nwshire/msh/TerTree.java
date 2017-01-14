@@ -40,34 +40,6 @@ public class TerTree {
     }
 
     /**
-     * main function for use in testing from within an IDE.
-     * @param argv
-     */
-    public static void main(String argv[]) {
-        // 5, 4, 9, 5, 7, 2, 2
-        TerTree tt = new TerTree();
-
-        tt.addNode(1);
-        tt.addNode(5);
-        tt.addNode(4);
-        tt.addNode(9);
-        tt.addNode(5);
-        tt.addNode(7);
-        tt.addNode(2);
-        tt.addNode(2);
-        tt.addNode(3);
-        tt.addNode(8);
-        tt.addNode(10);
-        tt.addNode(1);
-        tt.addNode(4);
-        tt.addNode(1);
-        tt.addNode(3);
-
-        tt.prettyPrint();
-        System.out.println("done");
-    }
-
-    /**
      *   Class representing a ternary tree node.  Contains the value, and left, middle and right children.
      */
     public class TTNode {

@@ -38,16 +38,4 @@ public class StoI {
         // Multiply by sign, to set positive or negative.
         return intValue * sign;
     }
-
-    public static void main(String argv[]) {
-        // Tests
-        System.out.println(stringToInteger(null));
-        System.out.println(stringToInteger(""));
-        System.out.println(stringToInteger("-"));
-        System.out.println(stringToInteger("-100"));
-        System.out.println(stringToInteger("-000123"));
-        System.out.println(stringToInteger("+333"));
-        System.out.println(stringToInteger("  345 "));
-        System.out.println(stringToInteger("100,000"));
-    }
 }

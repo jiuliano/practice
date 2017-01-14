@@ -12,6 +12,7 @@ public class TerTree {
 
     /**
      * Add a node to the tree.
+     *
      * @param value
      */
     public void addNode(int value) {
@@ -20,6 +21,15 @@ public class TerTree {
         } else {
             head.insert(value);
         }
+    }
+
+    /**
+     * Get the head of the tree.
+     *
+     * @return
+     */
+    public TTNode getHead() {
+        return head;
     }
 
     /**
@@ -60,7 +70,7 @@ public class TerTree {
     /**
      *   Class representing a ternary tree node.  Contains the value, and left, middle and right children.
      */
-    private class TTNode {
+    public class TTNode {
         int value;
         TTNode left = null;
         TTNode middle = null;

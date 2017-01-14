@@ -9,9 +9,7 @@ public class StoI {
      * Convert the string to integer value, assuming decimal notation, and possible leading sign.  Handle reasonable edge cases
      * such as null value, empty string, string with just a sign, and leading or trailing spaces gracefully.
      *
-     * Two thoughts to make this more robust:
-     * -- Add logic to recognize a decimal place
-     * -- Add logic to recognize and flag incorrectly formatted values.  This implementation ignores any char values that are not digits (except of course, for a leading sign).
+     * Invalid
      *
      * @param stringValue
      * @return
@@ -25,10 +23,14 @@ public class StoI {
 
             for ( int i=0; i<chars.length; i++ ) {
                 if ( i == 0 && chars[i] == '-' ) {
-                    // Capture the sign.
                     sign = -1;
+                } else if ( i == 0 && chars[i] == '+' ) {
+                    sign = 1;
                 } else if ( chars[i] >= '0' && chars[i] <= '9' ) {
                     intValue = (intValue * 10) + (chars[i] - '0');
+                } else {
+                    intValue = 0; // invalid input
+                    break;
                 }
             }
         }

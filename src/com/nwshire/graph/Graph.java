@@ -9,6 +9,9 @@ public class Graph {
     private Map<String,Vertex> vertices = new HashMap<>();
     private Map<Integer,Edge> edges = new HashMap<>();
 
+    public Graph() {
+    }
+
     public Graph(List<Vertex> vertices){
         for(Vertex v: vertices){
             this.vertices.put(v.getLabel(), v);
@@ -63,8 +66,8 @@ public class Graph {
         boolean added = false;
         Vertex current = vertices.get(vertex.getLabel());
 
-        if(current == null || overwriteExisting) {
-            while (current != null) {
+        if( current == null || overwriteExisting ) {
+            if ( current != null ) {
                 removeVertex(current);
             }
 

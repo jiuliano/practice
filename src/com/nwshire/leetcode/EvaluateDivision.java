@@ -36,12 +36,14 @@ public class EvaluateDivision {
             nMap.put(v2, value);
         }
 
-        List<String> getNeighbors(String v1) {
-            List<String> neighbors = new ArrayList<>();
+        Set<String> getNeighbors(String v1) {
+            Set<String> neighbors;
             Map<String,Double> nMap = edgeList.get(v1);
 
             if ( nMap != null ) {
-                neighbors.addAll(nMap.keySet());
+                neighbors = nMap.keySet();
+            } else {
+                neighbors = new HashSet<>();
             }
 
             return neighbors;
@@ -67,7 +69,7 @@ public class EvaluateDivision {
             Double value = getValue(v1, v2);
 
             if ( value == null ) {
-                List<String> ns = getNeighbors(v1);
+                Set<String> ns = getNeighbors(v1);
 
                 for ( String n : ns ) {
                     if ( !visited.contains(n) ) {
@@ -76,8 +78,6 @@ public class EvaluateDivision {
 
                         if ( value != null ) {
                             value = value * getValue(v1, n);
-                            addEdge(v1, v2, value);
-                            addEdge(v2, v1, 1.0 / value);
                             break;
                         }
                     }

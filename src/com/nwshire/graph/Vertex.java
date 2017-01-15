@@ -9,6 +9,7 @@ import java.util.List;
 public class Vertex {
     List<Edge> edges;
     String label;
+    boolean visited = false;
 
     public Vertex(String label) {
         this.label = label;
@@ -47,6 +48,14 @@ public class Vertex {
 
     public List<Edge> getNeighbors() {
         return new ArrayList<Edge>(edges);
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
     @Override

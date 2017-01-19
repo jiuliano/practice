@@ -14,6 +14,8 @@ public class FindLowestTest {
         int test2[] = new int[] { 4, 5, 6, 7, 1, 2, 3 };
         int test3[] = new int[] { 2, 3, 4, 5, 6, 7, 1 };
         int test4[] = new int[] { 7, 1, 2, 3, 4, 5, 6 };
+        int test5[] = new int[] {};
+        int test6[] = new int[] { 5 };
 
         FindLowest findLowest = new FindLowest();
 
@@ -28,5 +30,11 @@ public class FindLowestTest {
 
         idx = findLowest.findLowest(test4);
         assertEquals(idx, 1);
+
+        idx = findLowest.findLowest(test5);
+        assertEquals(idx, -1);
+
+        idx = findLowest.findLowest(test6);
+        assertEquals(idx, 0);
     }
 }

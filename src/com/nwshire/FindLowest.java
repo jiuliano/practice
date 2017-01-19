@@ -23,7 +23,7 @@ public class FindLowest {
                 } else if ( arr[mid] > arr[high] ) {
                     low = mid;
                 } else {
-                    break; // list is not roated.  exit.
+                    break; // list is not rotated.  exit.
                 }
             }
 

@@ -7,29 +7,26 @@ import java.util.Deque;
  * Created by james on 1/19/2017.
  */
 public class BreadthFirstSearch {
-	Deque<TreeNode> dq = new ArrayDeque<>();
-	
     public TreeNode bfsFindNode(TreeNode root, TreeNode node) {
         TreeNode found = null;
+        Deque<TreeNode> queue = new ArrayDeque<>();
 
-		dq.addLast(root);
-		while ( dq.size() > 0 ) {
-			TreeNode qNode = dq.getFirst();
-			
-			if ( qNode == node ) {
-				found = qNode;
-				break;
-			} else {
-				if ( qNode.left != null ) {
-					dq.addLast(qNode.left);
-				}
-				
-				if ( qNode.right != null ) {
-					dq.addLast(qNode.right);
-				}
-			}
-		}
-		
+        queue.addLast(root);
+        while ( queue.size() > 0 ) {
+            TreeNode dqNode = queue.removeFirst();
+
+            if ( dqNode == node ) {
+                found = dqNode;
+                break;
+            } else {
+                if ( dqNode.left != null )
+                    queue.addLast(dqNode.left);
+
+                if ( dqNode.right != null )
+                    queue.addLast(dqNode.right);
+            }
+        }
+
         return found;
     }
 }

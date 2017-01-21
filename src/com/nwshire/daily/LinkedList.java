@@ -16,15 +16,15 @@ public class LinkedList {
     }
 
     public void addNode(Node node) {
+
 		node.next = head;
-		node.prev = null;
-		
+
 		if ( head != null ) {
 			head.prev = node;
 		} else {
 			tail = node;
 		}
-		
+
 		head = node;
     }
 
@@ -32,20 +32,19 @@ public class LinkedList {
         if ( node == head ) {
 			head = node.next;
 		}
-		
+
 		if ( node == tail ) {
-		    tail = node.prev;
+			tail = node.prev;
 		}
-	
-	    if ( node.next != null ) {
+
+		if ( node.next != null ) {
 			node.next.prev = node.prev;
 		}
-		
+
 		if ( node.prev != null ) {
 			node.prev.next = node.next;
 		}
-		
-		node.next = null;
-		node.prev = null;
-	}
+
+		node.prev = node.next = null;
+    }
 }

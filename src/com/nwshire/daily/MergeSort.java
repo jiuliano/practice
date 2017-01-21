@@ -11,20 +11,15 @@ public class MergeSort {
     }
 
     private void mergeSort(String list[], int from, int to) {
-        if ( to - from > 1 )
-        {
+        if ( to - from > 1 ) {
             int mid = from + ((to-from)/2);
             mergeSort(list, from, mid);
             mergeSort(list, mid+1, to);
             merge(list, from, mid, mid+1, to);
-        }
-        else if ( to - from == 1 )
-        {
-            if ( list[from].compareTo(list[to]) > 0 ) {
-                String temp = list[to];
-                list[to] = list[from];
-                list[from] = temp;
-            }
+        } else if ( to - from == 1 && list[from].compareTo(list[to]) > 0 ) {
+            String temp = list[from];
+            list[from] = list[to];
+            list[to] = temp;
         }
     }
 
@@ -33,13 +28,13 @@ public class MergeSort {
         int f = 0;
 
         while ( f < temp.length || f2 <= t2 ) {
-            if (f < temp.length && f2 <= t2) {
-                if (temp[f].compareTo(list[f2]) < 0) {
-                    list[f1++] = temp[f++];
-                } else {
+            if ( f < temp.length && f2 <= t2 ) {
+                if ( temp[f].compareTo(list[f2]) > 0 ) {
                     list[f1++] = list[f2++];
+                } else {
+                    list[f1++] = temp[f++];
                 }
-            } else if (f < temp.length) {
+            } else if ( f < temp.length ) {
                 list[f1++] = temp[f++];
             } else {
                 list[f1++] = list[f2++];

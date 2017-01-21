@@ -7,7 +7,7 @@ public class BinaryIndexedTree {
     protected int[] bit;
 
     public BinaryIndexedTree(int size) {
-        bit = new int[size];
+        bit = new int[size+1];
     }
 
     public int sum(int idx) {

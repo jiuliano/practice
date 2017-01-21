@@ -7,68 +7,63 @@ public class MyHashMap<K,V> {
     Entry<K,V> map[];
 
     public MyHashMap(int size) {
-		map = new Entry[size];
+        map = new Entry[size];
     }
 
     public void put(K key, V value) {
-        int idx = getIndex(key);
-		Entry e = getEntry(key, map[idx]);
-
-		if ( e != null ) {
-			e.value = value;
+        Entry entry = getEntry(key);
+		
+		if ( entry != null ) {
+			entry.value = value;
 		} else {
-			e = new Entry(key, value);
-			e.next = map[idx];
-
-			if ( map[idx] != null ) {
-				map[idx].prev = e;
-			}
-
-			map[idx] = e;
+			entry = new Entry(key, value);
+			int idx = getIndex(key);
+			
+			entry.next = map[idx];
+			map[idx] = entry;
 		}
-
     }
 
     public V get(K key) {
-		int idx = getIndex(key);
-		Entry e = getEntry(key, map[idx]);
-
-        return e != null ? (V)e.value : null;
+        Entry<K,V> entry = getEntry(key);
+        return entry != null ? entry.value : null;
     }
 
     public V remove(K key) {
-		int idx = getIndex(key);
-		Entry e = getEntry(key, map[idx]);
-
-		if ( e != null ) {
-		    if ( e == map[idx] ) {
-				map[idx] = e.next;
-			}
-
-			if ( e.next != null ) {
-				e.next.prev = e.prev;
-			}
-
-			if ( e.prev != null ) {
-				e.prev.next = e.next;
+        Entry<K,V> entry = getEntry(key);
+		
+		if ( entry != null ) {
+			int idx = getIndex(key);
+			
+			if ( entry == map[idx] ) {
+				map[idx] = map[idx].next;
+			} else {
+				Entry lastEntry = map[idx];
+				
+				while ( lastEntry != null && lastEntry.next != entry ) {
+					lastEntry = lastEntry.next;
+				}
+				
+				if ( lastEntry != null ) {
+					lastEntry.next = lastEntry.next.next;
+				}
 			}
 		}
 
-        return e != null ? (V)e.value : null;
+        return entry != null ? entry.value : null;
     }
-
-	private Entry getEntry(K key, Entry e) {
-		while ( e != null ) {
-			if ( e.key.equals(key) ) {
-				break;
-			}
-
-			e = e.next;
+	
+    private Entry<K,V> getEntry(K key) {
+		int idx = getIndex(key);
+		Entry entry = map[idx];
+		
+		while ( entry != null && !entry.key.equals(key) ) {
+			entry = entry.next;
 		}
 
-		return e;
-	}
-
+		return entry;
+	}	
+	
 	private int getIndex(K key) {
 		return Math.abs(key.hashCode()) % map.length;
 	}
@@ -76,9 +71,8 @@ public class MyHashMap<K,V> {
     private class Entry<K,V> {
         K key;
         V value;
-        Entry prev;
         Entry next;
-
+		
 		Entry(K key, V value) {
 			this.key = key;
 			this.value = value;

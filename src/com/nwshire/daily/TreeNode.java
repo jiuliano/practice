@@ -8,5 +8,8 @@ public class TreeNode<T> {
     TreeNode left;
     TreeNode right;
 
-
+    @Override
+    public boolean equals(Object obj) {
+        return obj.equals(value);
+    }
 }

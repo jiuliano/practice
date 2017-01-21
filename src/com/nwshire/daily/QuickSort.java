@@ -9,9 +9,8 @@ public class QuickSort {
     }
 
     private void quickSort(String list[], int from, int pivot) {
-        int to = pivot-1;
-
-        if ( to - from > 0 ) {
+        if ( pivot - from > 1 ) {
+            int to = pivot-1;
             int fr = from;
 
             while ( fr < to ) {
@@ -19,20 +18,20 @@ public class QuickSort {
                     ++fr;
                 }
 
-                while ( fr < to && list[to].compareTo(list[pivot]) > 0 ) {
+                while ( to > fr && list[to].compareTo(list[pivot]) > 0 ) {
                     --to;
                 }
 
-                if ( fr != to ) {
+                if ( fr < to ) {
                     String temp = list[fr];
                     list[fr] = list[to];
                     list[to] = temp;
                 }
             }
 
-            String temp = list[to];
-            list[to] = list[pivot];
-            list[pivot] = temp;
+            String temp = list[pivot];
+            list[pivot] = list[to];
+            list[to] = temp;
 
             quickSort(list, from, to-1);
             quickSort(list, to+1, pivot);

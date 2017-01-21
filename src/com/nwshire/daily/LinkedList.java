@@ -16,9 +16,8 @@ public class LinkedList {
     }
 
     public void addNode(Node node) {
-
-		node.next = head;
-
+        node.next = head;
+		
 		if ( head != null ) {
 			head.prev = node;
 		} else {
@@ -29,22 +28,22 @@ public class LinkedList {
     }
 
     public void removeNode(Node node) {
-        if ( node == head ) {
-			head = node.next;
-		}
-
-		if ( node == tail ) {
-			tail = node.prev;
-		}
-
-		if ( node.next != null ) {
+        if ( node.next != null ) {
 			node.next.prev = node.prev;
 		}
-
+		
 		if ( node.prev != null ) {
 			node.prev.next = node.next;
 		}
-
-		node.prev = node.next = null;
+		
+		if ( node == head ) {
+			head = node.next;
+		}
+		
+		if ( node == tail ) {
+			tail = node.prev;
+		}
+		
+		node.next = node.prev = null;
     }
 }

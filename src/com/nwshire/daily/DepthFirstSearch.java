@@ -6,16 +6,18 @@ package com.nwshire.daily;
 public class DepthFirstSearch<T> {
     public TreeNode<T> dfsFindNode(TreeNode<T> node, T value) {
         TreeNode<T> found = null;
-  
-		if ( node != null && node.value.equals(value) )
-			found = node;
-		else {
-			found = dfsFindNode(node.left, value);
-			if ( found == null ) {
-				found = dfsFindNode(node.right, value);
+
+		if ( node != null ) {
+			if ( node.value.equals(value) )
+				found = node;
+			else {
+				found = dfsFindNode(node.left, value);
+				if ( found == null ) {
+					found = dfsFindNode(node.right, value);
+				}
 			}
 		}
-		
+
         return found;
     }
 }

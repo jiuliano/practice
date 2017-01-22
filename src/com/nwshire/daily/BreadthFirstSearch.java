@@ -11,7 +11,7 @@ public class BreadthFirstSearch<T> {
         TreeNode<T> found = null;
 		Deque<TreeNode> dq = new ArrayDeque<>();
 		
-		//dq.addLast(node);
+		dq.addLast(node);
 		while ( dq.size() > 0 ) {
 			TreeNode dqNode = dq.removeFirst();
 			

@@ -18,32 +18,25 @@ public class LinkedList {
     public void addNode(Node node) {
         node.next = head;
 		
-		if ( head != null ) {
-			head.prev = node;
+		if ( head == null ) {
+			head = tail = node;
 		} else {
-			tail = node;
+			head.prev = node;
+			head = node;
 		}
-
-		head = node;
     }
 
     public void removeNode(Node node) {
-        if ( node.next != null ) {
-			node.next.prev = node.prev;
-		}
-		
-		if ( node.prev != null ) {
+        if ( node.prev != null ) {
 			node.prev.next = node.next;
-		}
-		
-		if ( node == head ) {
+		} else {
 			head = node.next;
 		}
 		
-		if ( node == tail ) {
+		if ( node.next != null ) {
+			node.next.prev = node.prev;
+		} else {
 			tail = node.prev;
 		}
-		
-		node.next = node.prev = null;
     }
 }

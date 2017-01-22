@@ -11,61 +11,62 @@ public class MyHashMap<K,V> {
     }
 
     public void put(K key, V value) {
-        Entry entry = getEntry(key);
+        Entry<K,V> entry = getEntry(key);
 		
 		if ( entry != null ) {
 			entry.value = value;
 		} else {
-			entry = new Entry(key, value);
-			int idx = getIndex(key);
-			
-			entry.next = map[idx];
-			map[idx] = entry;
+			entry = new Entry(key,value);
+			int i = getIndex(key);
+			entry.next = map[i];
+			map[i] = entry;
 		}
     }
 
     public V get(K key) {
-        Entry<K,V> entry = getEntry(key);
+		Entry<K,V> entry = getEntry(key);
         return entry != null ? entry.value : null;
     }
 
     public V remove(K key) {
+        V value = null;
         Entry<K,V> entry = getEntry(key);
 		
 		if ( entry != null ) {
-			int idx = getIndex(key);
+			value = entry.value;
+			int i = getIndex(key);
 			
-			if ( entry == map[idx] ) {
-				map[idx] = map[idx].next;
+			if ( map[i] == entry ) {
+				map[i] = entry.next;
 			} else {
-				Entry lastEntry = map[idx];
-				
-				while ( lastEntry != null && lastEntry.next != entry ) {
-					lastEntry = lastEntry.next;
+				Entry pEntry = map[i];
+				while ( pEntry.next != null && pEntry.next != entry ) {
+					pEntry = pEntry.next;
 				}
 				
-				if ( lastEntry != null ) {
-					lastEntry.next = lastEntry.next.next;
+				if ( pEntry != null ) {
+					pEntry.next = pEntry.next.next;
 				}
 			}
 		}
-
-        return entry != null ? entry.value : null;
+		
+        return value;
     }
 	
-    private Entry<K,V> getEntry(K key) {
-		int idx = getIndex(key);
-		Entry entry = map[idx];
+	private int getIndex(K key) {
+		return Math.abs(key.hashCode()) % map.length;
+	}
+	
+	private Entry<K,V> getEntry(K key) {
+		int i = getIndex(key);
+		Entry<K,V> entry = map[i];
 		
-		while ( entry != null && !entry.key.equals(key) ) {
+		while ( entry != null ) {
+			if ( entry.key.equals(key) ) break;
 			entry = entry.next;
 		}
 
 		return entry;
-	}	
-	
-	private int getIndex(K key) {
-		return Math.abs(key.hashCode()) % map.length;
 	}
 
     private class Entry<K,V> {

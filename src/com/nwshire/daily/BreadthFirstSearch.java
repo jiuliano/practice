@@ -13,17 +13,17 @@ public class BreadthFirstSearch<T> {
 		
 		dq.addLast(node);
 		while ( dq.size() > 0 ) {
-			TreeNode dqNode = dq.removeFirst();
+			node = dq.removeFirst();
 			
-			if ( dqNode.value.equals(value) ) {
-				found = dqNode;
+			if ( node.value.equals(value) ) {
+				found = node;
 				break;
 			} else {
-				if ( dqNode.left != null ) dq.addLast(dqNode.left);
-				if ( dqNode.right != null ) dq.addLast(dqNode.right);
+				if ( node.left != null ) dq.addLast(node.left);
+				if ( node.right != null ) dq.addLast(node.right);
 			}
 		}
-
+		
         return found;
     }
 }

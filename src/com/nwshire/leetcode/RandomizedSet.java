@@ -32,17 +32,12 @@ public class RandomizedSet {
 
         if ( removed ) {
             int lastIdx = valueList.size() - 1;
-            if ( lastIdx == 0 ) {
-                // remove last item
-                valueToIdx.clear();
-                valueList.clear();
-            } else {
-                int replaceIdx = valueToIdx.remove(val);
-                int replaceValue = valueList.remove(lastIdx);
-                if ( replaceIdx != lastIdx ) {
-                    valueList.set(replaceIdx, replaceValue);
-                    valueToIdx.put(replaceValue, replaceIdx);
-                }
+            int replaceIdx = valueToIdx.remove(val);
+            int replaceValue = valueList.remove(lastIdx);
+            
+            if ( replaceIdx != lastIdx ) {
+                valueList.set(replaceIdx, replaceValue);
+                valueToIdx.put(replaceValue, replaceIdx);
             }
         }
 

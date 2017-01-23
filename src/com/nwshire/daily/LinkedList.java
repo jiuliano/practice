@@ -16,14 +16,15 @@ public class LinkedList {
     }
 
     public void addNode(Node node) {
-        node.next = head;
+		node.next = head;
 		
-		if ( head == null ) {
-			head = tail = node;
-		} else {
+		if ( head != null ) {
 			head.prev = node;
-			head = node;
+		} else {
+			head = tail = node;
 		}
+
+		head = node;
     }
 
     public void removeNode(Node node) {

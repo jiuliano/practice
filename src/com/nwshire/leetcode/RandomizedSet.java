@@ -34,7 +34,7 @@ public class RandomizedSet {
             int lastIdx = valueList.size() - 1;
             int replaceIdx = valueToIdx.remove(val);
             int replaceValue = valueList.remove(lastIdx);
-            
+
             if ( replaceIdx != lastIdx ) {
                 valueList.set(replaceIdx, replaceValue);
                 valueToIdx.put(replaceValue, replaceIdx);

@@ -13,15 +13,14 @@ public class BreadthFirstSearch<T> {
 		
 		dq.addLast(node);
 		while ( dq.size() > 0 ) {
-			node = dq.removeFirst();
-			
-			if ( node.value.equals(value) ) {
-				found = node;
+			TreeNode qNode = dq.removeFirst();
+			if ( qNode.value.equals(value) ) {
+				found = qNode;
 				break;
-			} else {
-				if ( node.left != null ) dq.addLast(node.left);
-				if ( node.right != null ) dq.addLast(node.right);
-			}
+			} 
+			
+			if ( qNode.left != null ) dq.addLast(qNode.left);
+			if ( qNode.right != null ) dq.addLast(qNode.right);
 		}
 		
         return found;

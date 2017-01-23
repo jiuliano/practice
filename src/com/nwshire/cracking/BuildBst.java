@@ -1,18 +1,20 @@
 package com.nwshire.cracking;
 
+import com.nwshire.daily.TreeNode;
+
 /**
  * Created by james on 1/22/2017.
  */
 public class BuildBst {
-    TreeNode root = null;
+    TreeNode<Integer> root = null;
 
     void insert(int value) {
         root = insert(root, value);
     }
 
-    private TreeNode insert(TreeNode node, int value) {
+    private TreeNode<Integer> insert(TreeNode<Integer> node, int value) {
         if ( node == null ) {
-            node = new TreeNode(value);
+            node = new TreeNode<>(value);
         } else {
             if ( value > node.value ) {
                 node.right = insert(node.right, value);
@@ -22,16 +24,5 @@ public class BuildBst {
         }
 
         return node;
-    }
-
-    public class TreeNode {
-        int value;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int value) {
-            this.value = value;
-            left = right = null;
-        }
     }
 }

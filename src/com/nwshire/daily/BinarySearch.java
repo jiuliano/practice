@@ -9,7 +9,7 @@ public class BinarySearch {
 		int from = 0;
 		int to = values.length-1;
 		
-		while ( to - from > 1 ) {
+		while ( to-from > 1 ) {
 			int mid = from + (to-from)/2;
 			
 			if ( values[from] <= target && target <= values[mid] ) {

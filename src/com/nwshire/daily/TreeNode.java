@@ -4,9 +4,9 @@ package com.nwshire.daily;
  * Created by james on 1/19/2017.
  */
 public class TreeNode<T> {
-    T value;
-    TreeNode left;
-    TreeNode right;
+    public T value;
+    public TreeNode left;
+    public TreeNode right;
 
     public TreeNode() {
         left = right = null;

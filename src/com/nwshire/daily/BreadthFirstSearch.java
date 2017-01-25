@@ -11,18 +11,19 @@ public class BreadthFirstSearch<T> {
         TreeNode<T> found = null;
 		Deque<TreeNode> dq = new ArrayDeque<>();
 		
-		dq.addLast(node);
+		dq.add(node);
 		while ( dq.size() > 0 ) {
-			TreeNode qNode = dq.removeFirst();
-			if ( qNode.value.equals(value) ) {
-				found = qNode;
+			node = dq.removeFirst();
+			if ( node.value.equals(value) ) {
+				found = node;
 				break;
-			} 
+			}
 			
-			if ( qNode.left != null ) dq.addLast(qNode.left);
-			if ( qNode.right != null ) dq.addLast(qNode.right);
+			if ( node.left != null ) dq.addLast(node.left);
+			if ( node.right != null ) dq.addLast(node.right);
 		}
 		
+
         return found;
     }
 }

@@ -15,9 +15,8 @@ public class Trie {
 		TrieNode node = head;
 		
 		for ( char c : cw ) {
-			if ( node.children[c] == null ) {
+			if ( node.children[c] == null )
 			    node.children[c] = new TrieNode();
-			}
 			
 			node = node.children[c];
 		}
@@ -27,9 +26,9 @@ public class Trie {
 
     public TrieNode getNode(String prefixOrWord) {
         TrieNode node = head;
-		char[] powc = prefixOrWord.toCharArray();
+		char[] porw = prefixOrWord.toCharArray();
 		
-		for ( char c : powc ) {
+		for ( char c : porw ) {
 			node = node.children[c];
 			if ( node == null ) break;
 		}

@@ -11,42 +11,40 @@ public class MyHashMap<K,V> {
     }
 
     public void put(K key, V value) {
-        Entry<K,V> entry = getEntry(key);
-		
-		if ( entry != null ) 
-			entry.value = value;
-		else {
-			entry = new Entry<>(key,value);
-			int idx = getIndex(key);
-			entry.next = map[idx];
-			map[idx] = entry;
+        Entry e = getEntry(key);
+
+        if ( e != null ) {
+			e.value = value;
+		} else {
+			e = new Entry(key,value);
+		    int idx = getIndex(key);
+			e.next = map[idx];
+			map[idx] = e;
 		}
     }
 
     public V get(K key) {
-        Entry<K,V> entry = getEntry(key);
-        return entry != null ? entry.value : null;
+        Entry<K,V> e = getEntry(key);
+        return e != null ? e.value : null;
     }
 
     public V remove(K key) {
-        Entry<K,V> entry = getEntry(key);
+        int idx = getIndex(key);
+		Entry<K,V> e = map[idx];
 		
-		if (entry != null) {
-			int idx = getIndex(key);
-			if ( map[idx] == entry ) {
-				map[idx] = map[idx].next;
-			} else {
-				Entry nEntry = map[idx];
-				while ( nEntry.next != null ) {
-					if ( nEntry.next == entry ) break;
-					nEntry = nEntry.next;
-				}
-				
-				nEntry.next = entry.next;
+		if ( map[idx] != null && map[idx].key.equals(key) ) {
+			map[idx] = map[idx].next;
+		} else {
+			while ( e.next != null ) {
+				if ( e.next.key.equals(key) ) break;
+			}
+			
+			if ( e.next != null ) {
+				e.next = e.next.next;
 			}
 		}
-
-        return entry != null ? entry.value : null;
+		
+        return e != null ? e.value : null;
     }
 	
 	int getIndex(K key) {
@@ -55,13 +53,16 @@ public class MyHashMap<K,V> {
 	
 	Entry getEntry(K key) {
 		int idx = getIndex(key);
-		Entry entry = map[idx];
+		Entry<K,V> entry = map[idx];
 		
 		while ( entry != null ) {
-			if ( entry.key.equals(key) ) break;
-			entry = entry.next;
+			if ( entry.key.equals(key) ) {
+				break;
+			} else {
+				entry = entry.next;
+			}
 		}
-
+		
 		return entry;
 	}
 
@@ -70,7 +71,7 @@ public class MyHashMap<K,V> {
         V value;
         Entry prev;
         Entry next;
-
+		
 		Entry(K key, V value) {
 			this.key = key;
 			this.value = value;

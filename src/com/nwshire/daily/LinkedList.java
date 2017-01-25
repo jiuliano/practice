@@ -21,9 +21,9 @@ public class LinkedList {
 		if ( head != null ) {
 			head.prev = node;
 		} else {
-			head = tail = node;
+			tail = node;
 		}
-
+		
 		head = node;
     }
 
@@ -39,5 +39,7 @@ public class LinkedList {
 		} else {
 			tail = node.prev;
 		}
+		
+		node.next = node.prev = null;
     }
 }

@@ -16,7 +16,7 @@ public class LinkedList {
     }
 
     public void addNode(Node node) {
-		node.next = head;
+        node.next = head;
 		
 		if ( head != null ) {
 			head.prev = node;
@@ -28,16 +28,16 @@ public class LinkedList {
     }
 
     public void removeNode(Node node) {
-        if ( node.prev != null ) {
-			node.prev.next = node.next;
-		} else {
-			head = node.next;
-		}
-		
-		if ( node.next != null ) {
+        if ( node.next != null ) {
 			node.next.prev = node.prev;
 		} else {
 			tail = node.prev;
+		}
+		
+		if ( node.prev != null ) {
+			node.prev.next = node.next;
+		} else {
+			head = node.next;
 		}
 		
 		node.next = node.prev = null;

@@ -11,14 +11,15 @@ public class Trie {
     }
 
     public void addWord(String word) {
-        char[] cw = word.toCharArray();
+        char[] wc = word.toCharArray();
 		TrieNode node = head;
 		
-		for ( char c : cw ) {
-			if ( node.children[c] == null )
+		for ( char c : wc ) {
+			if ( node.children[c] == null ) {
 			    node.children[c] = new TrieNode();
-			
-			node = node.children[c];
+			}
+
+            node = node.children[c];
 		}
 		
 		node.word = word;
@@ -26,13 +27,13 @@ public class Trie {
 
     public TrieNode getNode(String prefixOrWord) {
         TrieNode node = head;
-		char[] porw = prefixOrWord.toCharArray();
-		
-		for ( char c : porw ) {
-			node = node.children[c];
+		char[] pwc = prefixOrWord.toCharArray();
+
+		for ( char c : pwc ) {
+		    node = node.children[c];
 			if ( node == null ) break;
 		}
-
+		
         return node;
     }
 }

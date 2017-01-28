@@ -11,56 +11,58 @@ public class MyHashMap<K,V> {
     }
 
     public void put(K key, V value) {
-        Entry e = getEntry(key);
-
-        if ( e != null ) {
-			e.value = value;
+        Entry entry = getEntry(key);
+		
+		if ( entry != null ) {
+			entry.value = value;
 		} else {
-			e = new Entry(key,value);
-		    int idx = getIndex(key);
-			e.next = map[idx];
-			map[idx] = e;
+			int idx = getIndex(key);
+
+			entry = new Entry(key, value);
+			entry.next = map[idx];
+			map[idx] = entry;
 		}
     }
 
     public V get(K key) {
-        Entry<K,V> e = getEntry(key);
-        return e != null ? e.value : null;
+        Entry<K,V> entry = getEntry(key);
+        return entry != null ? entry.value : null;
     }
 
     public V remove(K key) {
-        int idx = getIndex(key);
-		Entry<K,V> e = map[idx];
+        Entry<K,V> entry = getEntry(key);
 		
-		if ( map[idx] != null && map[idx].key.equals(key) ) {
-			map[idx] = map[idx].next;
-		} else {
-			while ( e.next != null ) {
-				if ( e.next.key.equals(key) ) break;
-			}
+		if ( entry != null) {
+		    int idx = getIndex(key);
 			
-			if ( e.next != null ) {
-				e.next = e.next.next;
+			if ( entry == map[idx] ) {
+				map[idx] = map[idx].next;
+			} else {
+                Entry pentry = map[idx];
+                
+				while ( pentry != null ) {
+				    if ( pentry.next == entry ) break;
+				    pentry = pentry.next;
+				}
+				
+				pentry.next = entry.next;
 			}
 		}
-		
-        return e != null ? e.value : null;
+
+        return entry != null ? entry.value : null;
     }
 	
-	int getIndex(K key) {
+	private int getIndex(K key) {
 		return Math.abs(key.hashCode()) % map.length;
 	}
 	
-	Entry getEntry(K key) {
-		int idx = getIndex(key);
-		Entry<K,V> entry = map[idx];
+	private Entry getEntry(K key) {
+	    int idx = getIndex(key);
+		Entry entry = map[idx];
 		
 		while ( entry != null ) {
-			if ( entry.key.equals(key) ) {
-				break;
-			} else {
-				entry = entry.next;
-			}
+			if ( entry.key.equals(key) ) break;
+			entry = entry.next;
 		}
 		
 		return entry;

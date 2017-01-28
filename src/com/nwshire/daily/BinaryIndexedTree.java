@@ -11,19 +11,19 @@ public class BinaryIndexedTree {
 	}
 
     public int sum(int idx) {
-        int value = 0;
+		int value = 0;
 		while ( idx > 0 ) {
 			value += bit[idx];
 			idx = idx - (idx & -idx);
 		}
-		
+
 		return value;
     }
 
     public void add(int idx, int value) {
-        while ( idx < bit.length ) {
+		while ( idx < bit.length ) {
 			bit[idx] += value;
 			idx = idx + (idx & -idx);
 		}
-	}
+    }
 }

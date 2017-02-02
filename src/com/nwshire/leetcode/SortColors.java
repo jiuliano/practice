@@ -5,10 +5,8 @@ package com.nwshire.leetcode;
  */
 public class SortColors {
     public void sortColors(int[] nums) {
-        if ( nums.length == 1 ) return;
-
-        if ( nums.length == 2 ) {
-            if ( nums[0] > nums[1] ) {
+        if ( nums.length <= 2 ) { // <=2-element edge case, swap if out of order and/or return.
+            if ( nums.length == 2 && nums[0] > nums[1] ) {
                 swap(nums, 0, 1);
             }
 
@@ -27,7 +25,9 @@ public class SortColors {
                 mid = low; // reset mid if it is out of range
             }
 
-            if ( mid < nums.length && nums[mid] == 0 ) {  // if 0, swap to the left
+            if ( nums[low] == 2 && nums[high] == 0 ) { // just swap straight across
+                swap(nums, low, high);
+            } else if ( mid < nums.length && nums[mid] == 0 ) {  // if 0, swap to the left
                 swap(nums, low, mid);
             } else if ( mid < nums.length && nums[mid] == 2 ) { // if 2, swap to the right
                 swap(nums, mid, high);

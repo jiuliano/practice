@@ -17,6 +17,7 @@ public class InsertBstTest {
         ib.insert(12);
         ib.insert(100);
         ib.insert(40);
+        ib.insert(12);
         ib.insert(30);
         ib.insert(45);
         ib.insert(55);

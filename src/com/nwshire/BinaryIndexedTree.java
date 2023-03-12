@@ -15,7 +15,7 @@ public class BinaryIndexedTree {
 
         while ( idx > 0 ) {
             sum = sum + bit[idx];
-            idx = idx = (idx & -idx);
+            idx = idx - (idx & -idx);
         }
 
         return sum;
